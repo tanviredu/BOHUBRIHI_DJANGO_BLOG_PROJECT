@@ -1,0 +1,32 @@
+{% extends "nav.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title_block %} Change Profile : @{{user}} {% endblock %}
+{% block css_block %}
+        <style>
+        .signup{
+            width:1000px;
+            border:2px solid #ccc;
+            padding:40px;
+            font-family:'Anton',sans-serif;
+        }
+
+
+        </style>
+
+{% endblock %}
+{% block body_block %}
+    <center>
+        
+        <div class="signup">
+            <h1 class="display-4">Change Profile @ {{user}}</h1>
+            <hr>
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                <input type="submit" class="btn btn-outline-info" style="width:100%" value="Change">
+            </form>
+            
+        </div>
+    </center>
+{% endblock %}

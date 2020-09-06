@@ -1,11 +1,21 @@
 from django.contrib import admin
 from django.urls import path, include
+from . import views
+from App_Login.views import pass_change
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns, static
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/',include('App_Login.urls')),
+    path('blog',include("App_Blog.urls")),
+    path('',views.index,name="index"),
+
+    ## this link is fixed thats why it is here 
+    ## rather than the App_Login app
+    path("password/",pass_change,name="pass_change")
+
 ]
 
 

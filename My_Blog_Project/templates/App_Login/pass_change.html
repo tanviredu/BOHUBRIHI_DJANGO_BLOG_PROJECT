@@ -1,0 +1,31 @@
+{% extends "nav.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title_block %} password Change @{{user}}{% endblock %}
+{% block css_block %}
+        <style>
+        .passchange{
+            width:500px;
+            border:2px solid #ccc;
+            padding:40px;
+            font-family:'Anton',sans-serif;
+        }
+
+
+        </style>
+
+{% endblock %}
+{% block body_block %}
+    <center>
+        
+        <div class="passchange">
+            <h1 class="display-4">Password Change </h1>
+            <form method="POST">
+                {% csrf_token %}
+                {{form|crispy}}
+                <input type="submit" class="btn btn-outline-info" style="width:100%" value="Change Password">
+            </form>
+            
+        </div>
+    </center>
+{% endblock %}
