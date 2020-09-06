@@ -5,6 +5,7 @@ from django.contrib.auth import login,logout,authenticate
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
+from .models import UserProfile
 
 
 def sign_up(request):
@@ -15,7 +16,7 @@ def sign_up(request):
         if form.is_valid():
             form.save()
             registered = True
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("App_Login:login"))
     ctx = {'form':form,'registered':registered}
     return render(request,'App_Login/signup.html',ctx)
 

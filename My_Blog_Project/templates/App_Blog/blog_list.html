@@ -1,0 +1,36 @@
+{% extends 'nav.html' %}
+{% block title_block %} Home {% endblock %}
+{% block css_block %}
+        <style>
+        .myblog{
+            width:1200px;
+            border:20px solid #ccc;
+            padding:70px;
+            font-family:'Anton',sans-serif;
+        }
+
+
+        </style>
+
+{% endblock %}
+
+
+{% block body_block %}
+{% for blog in blogs %}
+<div class="myblog">
+        <h3 class="display-4">{{blog.blog_title}}</h3>
+        <h6> {{blog.publish_date}}</h6>
+    <div class="row">
+    <div class="col-sm-4">
+        <img src="/media/{{blog.blog_image}}" alt="{{blog.blog_title}}" title="{{blog.blog_title}}" width="100%">
+        </div>
+    <div class="col-sm-8">
+        <p>{{blog.blog_content|linebreaks}} <a href="{% url "App_Blog:blog_details" blog.slug %}">Read More</a></p>
+        <h6>Posted By: @{{blog.author}}</h6>
+        <h6>{{blog.liked_blog.count}} Likes | {{blog.blog_comment.count }} Comments </h6>
+    </div>
+    </div>
+</div>
+<hr>
+{% endfor %}
+{% endblock %}

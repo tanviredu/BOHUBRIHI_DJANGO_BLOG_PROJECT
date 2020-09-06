@@ -1,4 +1,4 @@
-from django.shortcuts import HttpResponse
-
+from django.shortcuts import HttpResponse,HttpResponseRedirect
+from django.urls import reverse
 def index(request):
-    return HttpResponse("index")
+    return HttpResponseRedirect(reverse("App_Blog:blog_list"))

@@ -1,0 +1,86 @@
+{% extends 'nav.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} {{blog.blog_title}} {% endblock %}
+{% block css_block %}
+        <style>
+        .comment_form{
+            width:100%;
+            
+            border:1px solid #ccc;
+            padding:20px;
+            font-family:'Anton',sans-serif;
+        }
+
+         .comment{
+            width:100%;
+            border:1px solid #ccc;
+            padding:20px;
+            font-family:'Anton',sans-serif;
+        }
+
+        .detail_post{
+            border:1px solid #ccc;
+            padding:20px;
+            font-family:'Anton',sans-serif;
+        }
+
+
+        </style>
+
+{% endblock %}
+
+
+{% block body_block %}
+
+<div class="myblog">
+        <h3 class="display-4">{{blog.blog_title}}</h3>
+        <hr>
+        <h6> {{blog.publish_date}}</h6>
+        <h4>Posted By: @{{blog.author}}</h4>
+        <i><h6>Published On: {{blog.publish_date}}</h6></i>
+        <i><h6>Updated On: {{blog.update_date}}</h6></i>
+    
+    <div class="row">
+        {% if blog.blog_image %}
+            <div class="col-sm-4">
+                <img src="/media/{{blog.blog_image}}" alt="{{blog.blog_title}}" title="{{blog.blog_title}}" width="100%">
+            </div>
+        {% endif %}
+    <div class="col-sm-8">
+        <div class="detail_post">
+            <p >{{blog.blog_content|linebreaks}} </p>
+            <h6>Posted By: <a href="{% url 'App_Login:profile' %}">@{{blog.author}}</a></h6>
+            <h6>{{blog.liked_blog.count}} Likes | {{blog.blog_comment.count }} Comments </h6>
+             {% if not liked %}
+              <a  class="btn btn-danger" href="{% url 'App_Blog:liked_post' pk=blog.pk %}">Like</a>
+            {% else %}
+                 <a  class="btn btn-danger" href="{% url 'App_Blog:unliked_post' pk=blog.pk %}">UnLike</a>
+            {% endif %}
+            <a href="{% url 'App_Blog:edit_blog' blog.id  %}" class="btn btn-outline-danger">Update Post</a>
+        </div>
+    </div>
+</div>
+
+<hr>
+</div>
+  <div class="row">
+    <div class="comment" >
+         <hr>
+             {% for comment in blog.blog_comment.all %}
+                <p><a href="#">@{{comment.user}}</a> {{comment.comment}}<br><h6>{{comment.comment_date}}</h6></p>
+        <hr>
+            {% endfor %}
+    </div>
+    <div class="comment_form">
+        <form method="POST">
+            {{ comment_form | crispy }}
+            {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg">Comment</button>
+      </form>
+    </div>
+
+  </div>
+  <br>
+  <br>
+</center>
+  {% endblock %}

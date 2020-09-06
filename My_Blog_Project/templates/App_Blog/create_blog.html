@@ -1,0 +1,33 @@
+{% extends "nav.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title_block %} post @{{user}}{% endblock %}
+{% block css_block %}
+        <style>
+        .post{
+            width:1200px;
+            border:2px solid #ccc;
+            padding:40px;
+            font-family:'Anton',sans-serif;
+        }
+
+
+        </style>
+
+{% endblock %}
+{% block body_block %}
+    <center>
+        
+        <div class="post">
+            <h1 class="display-4">Whats On Your mind {{user}} ?</h1>
+            <form method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{form|crispy}}
+                <input type="submit" class="btn btn-outline-info" style="width:100%" value="Post Blog">
+            </form>
+            <div>
+                <p>Already Have An Account? <a href="{% url 'index' %}"> blog list </a></p>
+            </div>
+        </div>
+    </center>
+{% endblock %}
