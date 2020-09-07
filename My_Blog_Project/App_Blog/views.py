@@ -23,9 +23,7 @@ def CreateBlog(request):
         if form.is_valid():
             blog_obj = form.save(commit=False)
             blog_obj.author = request.user
-            ## title is needed for creating slug
-            title = blog_obj.blog_title
-            blog_obj.slug = title.replace(" ","-")+"-"+str(uuid.uuid4())
+            blog_obj.slug = str(uuid.uuid4())
             blog_obj.save()
             created = True
             return HttpResponseRedirect(reverse("index"))
