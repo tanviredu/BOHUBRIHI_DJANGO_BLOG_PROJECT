@@ -23,6 +23,7 @@ def CreateBlog(request):
         if form.is_valid():
             blog_obj = form.save(commit=False)
             blog_obj.author = request.user
+            ## use the only uuid str form . including title create problem in quoted title
             blog_obj.slug = str(uuid.uuid4())
             blog_obj.save()
             created = True
